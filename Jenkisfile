@@ -1,26 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Clonar repo') {
+        stage("Clone") {
             steps {
-                git 'https://github.com/AndresFEG/automationchallenge.git'
+                git url: 'https://github.com/AndresFEG/automationchallenge.git'
             }
         }
-        stage('Compilar') {
+        stage("Compile") {
             steps {
-                sh './gradlew build'
+                sh "./gradlew compileJava"
             }
         }
-        stage('pruebas') {
+        stage("Test") {
             steps {
-                sh './gradlew clean test'
-'
+                sh "./gradlew test"
             }
-        }
-    }
-    post {
-        always {
-            junit 'build/test-results/*/.xml'
         }
     }
 }
