@@ -1,34 +1,26 @@
-
-
-
-
 pipeline {
     agent any
     stages {
-        stage('Connexion Repo') {
+        stage('Clonar repo') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: '0000001', url: 'https://gitlab.com/AndresEFG/ch_challenge.git']]])
+                git 'https://github.com/AndresFEG/automationchallenge.git'
             }
         }
-
-        stage('Test') {
+        stage('Compilar') {
             steps {
-                script {
-                    try {
-                        bat("gradle clean test")
-                        echo 'Test ok'
-
-                    } catch (e) {
-                        echo 'Test fail'
-
-                    }
-                }
+                sh './gradlew build'
             }
         }
-
-
-
-
-
+        stage('pruebas') {
+            steps {
+                sh './gradlew clean test'
+'
+            }
+        }
+    }
+    post {
+        always {
+            junit 'build/test-results/*/.xml'
+        }
     }
 }
