@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Connexion Repo') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ url: 'https://gitlab.com/AndresEFG/ch_challenge.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: '0000001', url: 'https://gitlab.com/AndresEFG/ch_challenge.git']]])
             }
         }
 
