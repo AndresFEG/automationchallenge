@@ -24,6 +24,7 @@ public class Register implements Task {
         Properties props = new Properties();
         try {
             props.load(new FileInputStream("src/test/resources/properties/test.properties"));
+            props.setProperty("testvariable",(int) (Math.random() * 100) + 1 + "cp");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
